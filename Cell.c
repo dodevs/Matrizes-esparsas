@@ -27,3 +27,19 @@ struct cell *cell_getNextOfCol(struct cell *cell) {
   return cell->nextOfCol;
 }
 /* end of Getters */
+
+/* Methods */
+Cell *cell_newCell(int i, int j, int k) {
+  Cell *cell = malloc(sizeof(Cell));
+  cell->i = i;
+  cell->j = j;
+  cell->k = k;
+  cell->nextOfRow = cell->nextOfCol = NULL;
+
+  return cell;
+}
+
+void cell_killCell(Cell *cell) {
+  free(cell);
+}
+/* Methods */
