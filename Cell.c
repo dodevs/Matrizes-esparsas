@@ -28,6 +28,28 @@ struct cell *cell_getNextOfCol(struct cell *cell) {
 }
 /* end of Getters */
 
+/* Setters */
+void cell_setI(Cell *cell, int i) {
+  cell->i = i;
+}
+
+void cell_setJ(Cell *cell, int j) {
+  cell->j = j;
+}
+
+void cell_setK(Cell *cell, int k) {
+  cell->k = k;
+}
+
+void cell_setNextOfRow(Cell *cell, Cell *ncell) {
+  cell->nextOfRow = ncell;
+}
+
+void cell_setNextOfCol(Cell *cell, Cell *ncell) {
+  cell->nextOfCol = ncell;
+}
+/* end of Setters */
+
 /* Methods */
 Cell *cell_newCell(int i, int j, int k) {
   Cell *cell = malloc(sizeof(Cell));
