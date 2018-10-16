@@ -3,3 +3,6 @@
 
 #Compilacao de codigo
 *.exe
+
+#Codigo objeto
+*.o
