@@ -15,8 +15,7 @@ Cell.o: Cell.c
 	gcc -c Cell.c
 
 clean:
-	del /S /Q *.o > nul
-	del /S /Q *.gch > null
+	del /S /Q *.o *.gch > nul
 
 uninstall:
 	del /S /Q listaEd2.exe > nul
