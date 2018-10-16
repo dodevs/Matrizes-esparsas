@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "Fila.h"
 #include "Cell.h"
 
@@ -25,3 +26,13 @@ void fila_setCells(Fila *fila, Cell *cells) {
   fila->cells = cells;
 }
 /* enf of Setters */
+
+/* Methods */
+Fila *fila_newFila() {
+  Fila *fila = malloc(sizeof(Fila));
+  fila->tam = 0;
+  fila->cells = NULL;
+
+  return fila;
+}
+/* end of Methods */
