@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include "Matriz.h"
+#include "Fila.h"
 #include "Cell.h"
 
 int main(int argc, char *argv[]) {
@@ -8,6 +10,10 @@ int main(int argc, char *argv[]) {
 
   printf("%d\n", cell_getK(cell0)); /* Print do valor contdo em `cell0` */
   printf("%d\n", cell_getK( cell_getNextOfRow(cell0)) ); /* print do valor contido em `cell1` que é a proxima celula da linha de `cell0` */
+
+  Matriz *mat = matriz_newMatriz(2,2);
+  Fila *linhas = fila_newFila();
+  Fila *colunas = fila_newFila();
 
   return 0;
 }
