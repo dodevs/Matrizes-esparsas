@@ -1,5 +1,7 @@
+#include <malloc.h>
+#include <stddef.h>
+
 #include "Cell.h"
-#include <stdlib.h>
 
 struct cell {
   int i, j, k;
@@ -52,7 +54,7 @@ void cell_setNextOfCol(Cell *cell, Cell *ncell) {
 
 /* Methods */
 Cell *cell_newCell(int i, int j, int k) {
-  Cell *cell = malloc(sizeof(Cell));
+  Cell *cell = (Cell *)malloc(sizeof(Cell));
   cell->i = i;
   cell->j = j;
   cell->k = k;

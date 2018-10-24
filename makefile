@@ -1,5 +1,3 @@
-SHELL=C:/Windows/System32/cmd.exe
-
 all: listaEd2
 
 listaEd2: Main.c Matriz.o Fila.o Cell.o

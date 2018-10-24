@@ -1,4 +1,6 @@
-#include <stdlib.h>
+#include <malloc.h>
+#include <stddef.h>
+
 #include "Fila.h"
 #include "Cell.h"
 
@@ -29,7 +31,7 @@ void fila_setCells(Fila *fila, Cell *cells) {
 
 /* Methods */
 Fila *fila_newFila() {
-  Fila *fila = malloc(sizeof(Fila));
+  Fila *fila = (Fila *)malloc(sizeof(Fila));
   fila->tam = 0;
   fila->cells = NULL;
 

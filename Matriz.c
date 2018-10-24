@@ -1,12 +1,13 @@
+#include <malloc.h>
+#include <stddef.h>
+
 #include "Matriz.h"
 #include "Cell.h"
 #include "Fila.h"
 
-#include <stdlib.h>
-
 struct matriz {
-  Fila *linhas;
-  Fila *colunas;
+  Fila **linhas;
+  Fila **colunas;
   int m;
   int n;
 };
@@ -50,7 +51,7 @@ void matriz_setN(Matriz *matriz, int n) {
 /* end of Setters */
 
 Matriz *matriz_newMatriz(int m, int n) {
-  Matriz *matriz = malloc(sizeof(Matriz));
+  Matriz *matriz = (Matriz *)malloc(sizeof(Matriz));
   matriz->linhas = matriz->colunas = NULL;
   matriz->m = n;
   matriz->n = n;
@@ -58,6 +59,6 @@ Matriz *matriz_newMatriz(int m, int n) {
   return matriz;
 }
 
-void matriz_insertInto(int i, int j) {
+/*void matriz_insertInto(Matriz *matriz,int i, int j, Cell *cell) {
 
-}
+}*/
