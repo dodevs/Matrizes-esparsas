@@ -5,15 +5,15 @@
 typedef struct matriz Matriz;
 
 /* Getters */
-Fila *matriz_getlinhas(Matriz *matriz);
-Fila *matriz_getColunas(Matriz *matriz);
+Cell **matriz_getlinhas(Matriz *matriz);
+Cell **matriz_getColunas(Matriz *matriz);
 int matriz_getM(Matriz *matriz);
 int matriz_getN(Matriz *matriz);
 /* end of Getters */
 
 /* Setters */
-void matriz_setLinhas(Matriz *matriz, Fila *linhas);
-void matriz_setColunas(Matriz *matriz, Fila *colunas);
+void matriz_setLinhas(Matriz *matriz, Cell **linhas);
+void matriz_setColunas(Matriz *matriz, Cell **colunas);
 void matriz_setM(Matriz *matriz, int m);
 void matriz_setN(Matriz *matriz, int n);
 /* end of Setters */

@@ -6,19 +6,19 @@
 #include "Fila.h"
 
 struct matriz {
-  Fila **linhas;
-  Fila **colunas;
+  Cell **linhas;
+  Cell **colunas;
   int m;
   int n;
 };
 
 /* Getters */
 
-Fila *matriz_getlinhas(Matriz *matriz) {
+Cell **matriz_getlinhas(Matriz *matriz) {
   return matriz->linhas;
 }
 
-Fila *matriz_getColunas(Matriz *matriz) {
+Cell **matriz_getColunas(Matriz *matriz) {
   return matriz->colunas;
 }
 
@@ -32,11 +32,11 @@ int matriz_getN(Matriz *matriz) {
 
 /* end of Getters */
 
-void matriz_setLinhas(Matriz *matriz, Fila *linhas) {
+void matriz_setLinhas(Matriz *matriz, Cell **linhas) {
   matriz->linhas = linhas;
 }
 
-void matriz_setColunas(Matriz *matriz, Fila *colunas) {
+void matriz_setColunas(Matriz *matriz, Cell **colunas) {
   matriz->colunas = colunas;
 }
 
@@ -52,13 +52,14 @@ void matriz_setN(Matriz *matriz, int n) {
 
 Matriz *matriz_newMatriz(int m, int n) {
   Matriz *matriz = (Matriz *)malloc(sizeof(Matriz));
-  matriz->linhas = matriz->colunas = NULL;
+  //matriz->linhas = matriz->colunas = NULL;
+  matriz->colunas = matriz->linhas = (Cell**) malloc(sizeof(Cell*) * n);
   matriz->m = n;
   matriz->n = n;
 
   return matriz;
 }
 
-/*void matriz_insertInto(Matriz *matriz,int i, int j, Cell *cell) {
+void matriz_insertInto(Matriz *matriz,int i, int j, Cell *cell) {
 
-}*/
+}

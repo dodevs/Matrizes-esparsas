@@ -17,32 +17,5 @@ int main(int argc, char *argv[]) {
   cell_setNextOfCol(cell1, cell3); /* Define que `cell3` será a proxima celula da coluna de `cell1` */
   cell_setNextOfRow(cell2, cell3); /* Define que `cell3` será a proxima celula da linha de `cell2` */
 
-  Fila *linhas = fila_newFila(); /* Cria uma lista vazia para as linhas da matriz */
-  Fila *colunas = fila_newFila(); /* Cria uma lista vazia para as colunas da matriz */
-
-  fila_setCells(linhas, cell0); /* Define a cabeça da linha */
-  fila_setCells(colunas, cell0); /* Defina a cabeça da coluna */
-
-  matriz_setLinhas(mat,linhas); /* Define as linhas na matriz */
-  matriz_setColunas(mat,colunas); /* Define as colunas na matriz */
-
-  Fila *testLinhas = matriz_getlinhas(mat);
-  Fila *testColunas = matriz_getColunas(mat);
-
-  Cell *cellsofcol = fila_getCells(testColunas);
-
-  while(cellsofcol != NULL){
-    printf("%d ", cell_getK(cellsofcol));
-    Cell *cellsofrow = cell_getNextOfRow(cellsofcol);
-    while(cellsofrow != NULL){
-      if(cell_getNextOfRow(cellsofrow) != NULL)
-        printf("%d ", cell_getK(cellsofrow));
-      else
-        printf("%d\n", cell_getK(cellsofrow));
-      cellsofrow = cell_getNextOfRow(cellsofrow);
-    }
-    cellsofcol = cell_getNextOfCol(cellsofcol);
-  }
-
   return 0;
 }
