@@ -14,7 +14,7 @@ struct matriz {
 
 /* Getters */
 
-Cell **matriz_getlinhas(Matriz *matriz) {
+	Cell **matriz_getLinhas(Matriz *matriz) {
   return matriz->linhas;
 }
 
@@ -60,6 +60,12 @@ Matriz *matriz_newMatriz(int m, int n) {
   return matriz;
 }
 
-void matriz_insertInto(Matriz *matriz,int i, int j, Cell *cell) {
-
+void matriz_insertInto(Matriz *matriz,int i, int j, int k) {
+ Cell *ncell = cell_newCell(i, j, k);
+ if(sizeof(matriz_getLinhas(matriz)) == 0 || sizeof(matriz_getColunas(matriz) == 0)){
+   matriz->linhas[i-1] = ncell;
+   matriz->colunas[j-1] = ncell;
+ }else {
+   printf("%s\n","Nap é zero");
+ }
 }
