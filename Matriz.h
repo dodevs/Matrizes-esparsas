@@ -5,7 +5,7 @@
 typedef struct matriz Matriz;
 
 /* Getters */
-Cell **matriz_getlinhas(Matriz *matriz);
+Cell **matriz_getLinhas(Matriz *matriz);
 Cell **matriz_getColunas(Matriz *matriz);
 int matriz_getM(Matriz *matriz);
 int matriz_getN(Matriz *matriz);
@@ -20,7 +20,7 @@ void matriz_setN(Matriz *matriz, int n);
 
 /* Methods */
 Matriz *matriz_newMatriz(int m, int n);
-void matriz_insertInto(int i, int j);
+void matriz_insertInto(Matriz *matriz,int i, int j, int k);
 /* enf of Methods */
 
 #endif /* __matriz_h */
