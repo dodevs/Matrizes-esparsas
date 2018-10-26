@@ -3,7 +3,6 @@
 
 #include "Matriz.h"
 #include "Cell.h"
-#include "Fila.h"
 
 struct matriz {
   Cell **linhas;
@@ -14,7 +13,7 @@ struct matriz {
 
 /* Getters */
 
-	Cell **matriz_getLinhas(Matriz *matriz) {
+Cell **matriz_getLinhas(Matriz *matriz) {
   return matriz->linhas;
 }
 
@@ -52,7 +51,6 @@ void matriz_setN(Matriz *matriz, int n) {
 
 Matriz *matriz_newMatriz(int m, int n) {
   Matriz *matriz = (Matriz *)malloc(sizeof(Matriz));
-  //matriz->linhas = matriz->colunas = NULL;
   matriz->colunas = matriz->linhas = (Cell**) malloc(sizeof(Cell*) * n);
   matriz->m = n;
   matriz->n = n;
@@ -61,11 +59,51 @@ Matriz *matriz_newMatriz(int m, int n) {
 }
 
 void matriz_insertInto(Matriz *matriz,int i, int j, int k) {
- Cell *ncell = cell_newCell(i, j, k);
- if(sizeof(matriz_getLinhas(matriz)) == 0 || sizeof(matriz_getColunas(matriz) == 0)){
-   matriz->linhas[i-1] = ncell;
-   matriz->colunas[j-1] = ncell;
- }else {
-   printf("%s\n","Nap é zero");
+ Cell *ncell = cell_newCell(i, j, k); // Cria uma nova celula
+ Cell **linhas = matriz_getLinhas(matriz); // Retorna o array de linhas da matriz
+ Cell **colunas = matriz_getColunas(matriz); // Retorna o array de colunas da matriz
+
+ if(linhas[i] == NULL){ // Se a linha da posicao for nulas
+   matriz->linhas[i-1] = ncell; // A linha daquela posicao passa a ter somente o elemento
+ }else { // Se nao for nula
+   Cell *cell = *linhas; // Eu pego a cabeca da linha
+   while(cell != NULL) {
+     Cell *nextCell = cell_getNextOfRow(cell);
+     if(nextCell != NULL) {
+       if(cell_getJ(nextCell) > j) {
+         cell_setNextOfRow(cell, ncell);
+         cell_setNextOfRow(ncell, nextCell);
+       }
+       if(cell_getJ(nextCell) == j) {
+         cell_setNextOfRow(ncell, cell_getNextOfRow(nextCell));
+         cell_setNextOfRow(cell, ncell);
+         cell_killCell(nextCell);
+       }
+     }
+
+     cell = cell_getNextOfRow(cell);
+   }
+ }
+
+ if(colunas[j] == NULL){ // Se a linha da posicao for nulas
+   matriz->colunas[j-1] = ncell; // A linha daquela posicao passa a ter somente o elemento
+ }else { // Se nao for nula
+   Cell *cell = *colunas; // Eu pego a cabeca da linha
+   while(cell != NULL) {
+     Cell *nextCell = cell_getNextOfCol(cell);
+     if(nextCell != NULL) {
+       if(cell_getJ(nextCell) > i) {
+         cell_setNextOfCol(cell, ncell);
+         cell_setNextOfCol(ncell, nextCell);
+       }
+       if(cell_getJ(nextCell) == i) {
+         cell_setNextOfCol(ncell, cell_getNextOfCol(nextCell));
+         cell_setNextOfCol(cell, ncell);
+         cell_killCell(nextCell);
+       }
+     }
+
+     cell = cell_getNextOfCol(cell);
+   }
  }
 }

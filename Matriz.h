@@ -1,6 +1,6 @@
 #ifndef __matriz_h
 #define __matriz_h
-#include "Fila.h"
+#include "Cell.h"
 
 typedef struct matriz Matriz;
 
