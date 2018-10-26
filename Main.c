@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include "Matriz.h"
-#include "Fila.h"
 #include "Cell.h"
 
 int main(int argc, char *argv[]) {
@@ -10,19 +9,22 @@ int main(int argc, char *argv[]) {
   Matriz *mat = matriz_newMatriz(TMATRIZ,TMATRIZ);
 
   matriz_insertInto(mat, 1, 1, 50);
+  matriz_insertInto(mat, 1, 2, 20);
 
-  Cell **linha = matriz_getLinhas(mat);
-  Cell **coluna = matriz_getColunas(mat);
+  Cell **linhas = matriz_getLinhas(mat);
+  Cell **colunas = matriz_getColunas(mat);
 
-  for(int i = 0; i < 16; i++){
-    //printf("%d ", cell_getK(*(linha+i)));
-    if(*(linha+i) != NULL)
-      printf("%d ", cell_getK(*(linha+i)));
-    else
-      printf("%d\n", 0);
-    if(i+1%4==0) printf("\n");
-  }
-
-
-  return 0;
+  printf("Valor da linha 1: %d\n", cell_getK(linhas[0]));
+  printf("Valor da coluna 1: %d\n", cell_getK(colunas[0]));
+  // for(int i = 0; i < TMATRIZ; i++) {
+  //   if(*(colunas+i) != NULL) printf("%d ", cell_getK(*(colunas+i)));
+  //   else printf("%d ", 0);
+  //   for(int j = 1; j < TMATRIZ; j++) {
+  //     if(*(linhas+i) != NULL) printf("%d ", cell_getK(*(linhas+i)));
+  //     else printf("%d ", 0);
+  //   }
+  //   printf("\n");
+  // }
+  //
+  // return 0;
 }
