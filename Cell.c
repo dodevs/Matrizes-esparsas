@@ -4,7 +4,8 @@
 #include "Cell.h"
 
 struct cell {
-  int i, j, k;
+  int i, j;
+  float k;
   struct cell *nextOfRow, *nextOfCol;
 };
 
@@ -17,7 +18,7 @@ int cell_getJ(struct cell *cell) {
   return cell->j;
 }
 
-int cell_getK(struct cell *cell) {
+float cell_getK(struct cell *cell) {
   return cell->k;
 }
 
@@ -39,7 +40,7 @@ void cell_setJ(Cell *cell, int j) {
   cell->j = j;
 }
 
-void cell_setK(Cell *cell, int k) {
+void cell_setK(Cell *cell, float k) {
   cell->k = k;
 }
 
