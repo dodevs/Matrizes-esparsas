@@ -1,19 +1,16 @@
 all: listaEd2
 
-listaEd2: Main.c Matriz.o Fila.o Cell.o
-	gcc -c listaEd2 Matriz.o Fila.o Cell.o Main.c
+listaEd2: Main.c Matriz.o Cell.o
+	gcc -o listaEd2 Matriz.o Cell.o Main.c
 
-Matriz.o: Matriz.c Fila.o
-	gcc -c Matriz.c Fila.o
-
-Fila.o: Fila.c Cell.o
-	gcc -c Fila.c Cell.o
+Matriz.o: Matriz.c Cell.o
+	gcc -c Matriz.c Cell.o
 
 Cell.o: Cell.c
 	gcc -c Cell.c
 
 clean:
-	del /S /Q *.o *.gch > nul
+	rm *.gch *.o
 
 uninstall:
-	del /S /Q listaEd2.exe > nul
+	rm listaEd2.exe
