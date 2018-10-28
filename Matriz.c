@@ -69,15 +69,6 @@ void matriz_removeCell(Matriz *matriz, int i, int j){
   while(cell != NULL && cell_getJ(cell) < j) {
     cell = cell_getNextOfRow(cell);
   }
-  if(cell_getNextOfRow(cell) =! NULL && cell_getJ(cell_getNextOfRow(cell)) == j) {
-    Cell *pcell_l = cell_getNextOfRow(cell);
-    Cell *pcell_c = cell_getNextOfRow(cell);
-    Cell *auxL = cell_getNextOfRow(pcell_l);
-    Cell *auxC = cell_getNextOfCol(pcell_c);
-    cell_setNextOfRow(cell, auxL);
-    cell_setNextOfRow(cell, auxC);
-    free(cell);
-  }
 
 }
 
