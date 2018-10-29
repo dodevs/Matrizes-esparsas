@@ -61,6 +61,10 @@ Matriz *matriz_newMatriz(int m, int n) {
   return matriz;
 }
 
+void matriz_somaMatrizes(Matriz *a, Matriz *b) {
+
+}
+
 void matriz_removeCell(Matriz *matriz, int i, int j){
   Cell **linhas = matriz_getLinhas(matriz);
   Cell **colunas = matriz_getColunas(matriz);
@@ -75,7 +79,7 @@ void matriz_removeCell(Matriz *matriz, int i, int j){
 
   for(anterior = NULL, percorrer = colunas[j]; cell_getI(percorrer) != i; anterior = percorrer, percorrer = cell_getNextOfCol(percorrer));
   if(anterior == NULL)
-    colunas[j] = cell_getNextOfRow(percorrer);
+    colunas[j] = cell_getNextOfCol(percorrer);
   else
     cell_setNextOfCol(anterior, cell_getNextOfCol(percorrer));
 
@@ -83,25 +87,33 @@ void matriz_removeCell(Matriz *matriz, int i, int j){
 
 }
 
-void matriz_insertInto(Matriz *matriz, int i, int j, int k) {
+void matriz_insertInto(Matriz *matriz, int i, int j, float k) {
   Cell **linhas = matriz_getLinhas(matriz); // Retorna o array de linhas da matriz
   Cell **colunas = matriz_getColunas(matriz); // Retorna o array de colunas da matriz
   Cell *newCell = cell_newCell(i, j, k);
 
-  if(linhas[i] == NULL){
-    linhas[i] = newCell;
-  }else{
-    Cell *percorrer, *anterior = NULL;
-    for(percorrer = linhas[i]; percorrer != NULL && cell_getJ(percorrer) < j; anterior = percorrer, percorrer = cell_getNextOfRow(percorrer));
-    cell_setNextOfRow(anterior, newCell);
-  }
+  if(i < matriz_getM(matriz) && j < matriz_getN(matriz)){
+    if(k != 0.0){
+      if(linhas[i] == NULL){
+        linhas[i] = newCell;
+      }else{
+        Cell *percorrer, *anterior = NULL;
+        for(percorrer = linhas[i]; percorrer != NULL && cell_getJ(percorrer) < j; anterior = percorrer, percorrer = cell_getNextOfRow(percorrer));
+        cell_setNextOfRow(anterior, newCell);
+      }
 
-  if(colunas[j] == NULL){
-    colunas[j] = newCell;
+      if(colunas[j] == NULL){
+        colunas[j] = newCell;
+      }else{
+        Cell *percorrer, *anterior = NULL;
+        for(percorrer = colunas[j]; percorrer != NULL && cell_getI(percorrer) < i; anterior = percorrer, percorrer = cell_getNextOfCol(percorrer));
+        cell_setNextOfCol(anterior, newCell);
+      }
+    }else{
+      matriz_removeCell(matriz, i, j);
+    }
   }else{
-    Cell *percorrer, *anterior = NULL;
-    for(percorrer = colunas[j]; percorrer != NULL && cell_getI(percorrer) < i; anterior = percorrer, percorrer = cell_getNextOfCol(percorrer));
-    cell_setNextOfCol(anterior, newCell);
+    return;
   }
 }
 
