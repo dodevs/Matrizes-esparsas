@@ -1,6 +1,6 @@
 #include <malloc.h>
 #include <stddef.h>
-
+#include <stdio.h>
 #include "Matriz.h"
 #include "Cell.h"
 
@@ -67,22 +67,18 @@ void matriz_removeCell(Matriz *matriz, int i, int j){
 
   Cell *percorrer, *anterior = NULL;
 
-  for(percorrer = linhas[i]; cell_getJ(percorrer) != j; anterior = percorrer, percorrer = cell_getNextOfCol(percorrer));
-  printf("Primeiro for: %d %d %lf\n", cell_getJ(percorrer), cell_getI(percorrer), cell_getK(percorrer));
+  for(percorrer = linhas[i]; cell_getJ(percorrer) != j; anterior = percorrer, percorrer = cell_getNextOfRow(percorrer));
   if(anterior == NULL)
-    linhas[i] = cell_getNextOfCol(percorrer);
-  else
-    cell_setNextOfCol(anterior, cell_getNextOfCol(percorrer));
-
-  for(anterior = NULL, percorrer = colunas[j]; cell_getI(percorrer) != i; anterior = percorrer, percorrer = cell_getNextOfRow(percorrer));
-  printf("Segundo for: %d %d %lf\n", cell_getJ(percorrer), cell_getI(percorrer), cell_getK(percorrer));
-  if(anterior == NULL)
-    colunas[j] = cell_getNextOfRow(percorrer);
+    linhas[i] = cell_getNextOfRow(percorrer);
   else
     cell_setNextOfRow(anterior, cell_getNextOfRow(percorrer));
 
-  /*for(anterior = NULL, percorrer = colunas[j]; percorrer != NULL; anterior = percorrer, percorrer = cell_getNextOfRow(percorrer))
-    printf("%d %d %lf\n", cell_getI(percorrer), cell_getJ(percorrer), cell_getK(percorrer));*/
+  for(anterior = NULL, percorrer = colunas[j]; cell_getI(percorrer) != i; anterior = percorrer, percorrer = cell_getNextOfCol(percorrer));
+  if(anterior == NULL)
+    colunas[j] = cell_getNextOfRow(percorrer);
+  else
+    cell_setNextOfCol(anterior, cell_getNextOfCol(percorrer));
+
   free(percorrer);
 
 }
