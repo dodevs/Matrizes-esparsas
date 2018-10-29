@@ -2,24 +2,32 @@
 #include "Matriz.h"
 #include "Cell.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char **argv) {
 
-  int TMATRIZ = 2;
+  char *arq_name = argv[1];
+	char *arq_name2 = argv[2];
 
-  Matriz *mat = matriz_newMatriz(TMATRIZ,TMATRIZ);
-  Matriz *mat2 = matriz_newMatriz(TMATRIZ,TMATRIZ);
+	FILE *arq = fopen(arq_name, "r");
+	FILE *arq2 = fopen(arq_name2, "r");
 
-  matriz_insertInto(mat, 0, 0, 5);
-  matriz_insertInto(mat, 0, 1, 6);
-  matriz_insertInto(mat, 1, 0, 7);
-  matriz_insertInto(mat, 1, 1, 8);
+	int TMATRIZ,TMATRIZ_2;
+	int i,j;
+	float k;
 
-  matriz_insertInto(mat2, 0, 0, 5);
-  matriz_insertInto(mat2, 0, 1, 6);
-  matriz_insertInto(mat2, 1, 1, -8);
+	Matriz *mat,*mat2,*mat_soma;
 
-  Matriz *sum = matriz_sum(mat, mat2);
+	fscanf(arq, "%d", &TMATRIZ);
+	mat = matriz_newMatriz(TMATRIZ,TMATRIZ);
+	while(fscanf(arq, "%d;%d;%f", &i, &j, &k) != EOF)
+		matriz_insertInto(mat, i-1, j-1, k);
 
-  matriz_print(sum);
 
+	fscanf(arq2, "%d", &TMATRIZ_2);
+	mat2 = matriz_newMatriz(TMATRIZ_2,TMATRIZ_2);
+	while(fscanf(arq2, "%d;%d;%f", &i, &j, &k) != EOF)
+		matriz_insertInto(mat2, i-1, j-1, k);
+
+  mat_soma = matriz_sum(mat, mat2);
+
+  matriz_print(mat_soma);
 }
