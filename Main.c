@@ -16,8 +16,7 @@ int main(int argc, char *argv[]) {
 
   matriz_insertInto(mat2, 0, 0, 5);
   matriz_insertInto(mat2, 0, 1, 6);
-  matriz_insertInto(mat2, 1, 0, 7);
-  matriz_insertInto(mat2, 1, 1, 8);
+  matriz_insertInto(mat2, 1, 1, -8);
 
   Matriz *sum = matriz_sum(mat, mat2);
 

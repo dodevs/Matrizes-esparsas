@@ -98,7 +98,7 @@ Matriz *matriz_sum(Matriz *a, Matriz *b) {
       }else{
 				e = c1 != NULL ? c1 : c2;
 				if(e != NULL)
-					matriz_insertInto(sum, cell_getK(e), i+1, j+1);
+					matriz_insertInto(sum, i, j, cell_getK(e));
 			}
     }
   }
@@ -112,19 +112,23 @@ void matriz_removeCell(Matriz *matriz, int i, int j){
 
   Cell *percorrer, *anterior = NULL;
 
-  for(percorrer = linhas[i]; cell_getJ(percorrer) != j; anterior = percorrer, percorrer = cell_getNextOfRow(percorrer));
-  if(anterior == NULL)
-    linhas[i] = cell_getNextOfRow(percorrer);
-  else
-    cell_setNextOfRow(anterior, cell_getNextOfRow(percorrer));
+  Cell *celula = matriz_exists(matriz, i, j);
 
-  for(anterior = NULL, percorrer = colunas[j]; cell_getI(percorrer) != i; anterior = percorrer, percorrer = cell_getNextOfCol(percorrer));
-  if(anterior == NULL)
-    colunas[j] = cell_getNextOfCol(percorrer);
-  else
-    cell_setNextOfCol(anterior, cell_getNextOfCol(percorrer));
+  if(celula){
+    for(percorrer = linhas[i]; cell_getJ(percorrer) != j; anterior = percorrer, percorrer = cell_getNextOfRow(percorrer));
+    if(anterior == NULL)
+      linhas[i] = cell_getNextOfRow(percorrer);
+    else
+      cell_setNextOfRow(anterior, cell_getNextOfRow(percorrer));
 
-  free(percorrer);
+    for(anterior = NULL, percorrer = colunas[j]; cell_getI(percorrer) != i; anterior = percorrer, percorrer = cell_getNextOfCol(percorrer));
+    if(anterior == NULL)
+      colunas[j] = cell_getNextOfCol(percorrer);
+    else
+      cell_setNextOfCol(anterior, cell_getNextOfCol(percorrer));
+
+    free(percorrer);
+  }
 
 }
 
@@ -164,5 +168,5 @@ void matriz_print(Matriz *matriz){
   Cell *percorrer;
   for(int i = 0; i < matriz_getN(matriz); i++)
     for(percorrer = linhas[i]; percorrer != NULL; percorrer = cell_getNextOfRow(percorrer))
-      printf("%d; %d; %lf\n", cell_getI(percorrer), cell_getJ(percorrer), cell_getK(percorrer));
+      printf("%d; %d; %lf\n", cell_getI(percorrer)+1, cell_getJ(percorrer)+1, cell_getK(percorrer));
 }
