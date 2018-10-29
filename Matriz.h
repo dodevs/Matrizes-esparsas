@@ -21,6 +21,8 @@ void matriz_setN(Matriz *matriz, int n);
 /* Methods */
 Matriz *matriz_newMatriz(int m, int n);
 void matriz_insertInto(Matriz *matriz,int i, int j, int k);
+void matriz_print(Matriz *matriz);
+void matriz_removeCell(Matriz *matriz, int i, int j);
 /* enf of Methods */
 
 #endif /* __matriz_h */

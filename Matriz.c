@@ -65,62 +65,55 @@ void matriz_removeCell(Matriz *matriz, int i, int j){
   Cell **linhas = matriz_getLinhas(matriz);
   Cell **colunas = matriz_getColunas(matriz);
 
-  Cell *cell = *(linhas+i);
-  while(cell != NULL && cell_getJ(cell) < j) {
-    cell = cell_getNextOfRow(cell);
-  }
+  Cell *percorrer, *anterior = NULL;
+  
+  for(percorrer = linhas[i]; cell_getJ(percorrer) != j; anterior = percorrer, percorrer = cell_getNextOfCol(percorrer));
+  printf("Primeiro for: %d %d %lf\n", cell_getJ(percorrer), cell_getI(percorrer), cell_getK(percorrer));
+  if(anterior == NULL)
+    linhas[i] = cell_getNextOfCol(percorrer);
+  else
+    cell_setNextOfCol(anterior, cell_getNextOfCol(percorrer));
+
+  for(anterior = NULL, percorrer = colunas[j]; cell_getI(percorrer) != i; anterior = percorrer, percorrer = cell_getNextOfRow(percorrer));
+  printf("Segundo for: %d %d %lf\n", cell_getJ(percorrer), cell_getI(percorrer), cell_getK(percorrer));
+  if(anterior == NULL)
+    colunas[j] = cell_getNextOfRow(percorrer);
+  else
+    cell_setNextOfRow(anterior, cell_getNextOfRow(percorrer));
+  
+  /*for(anterior = NULL, percorrer = colunas[j]; percorrer != NULL; anterior = percorrer, percorrer = cell_getNextOfRow(percorrer))
+    printf("%d %d %lf\n", cell_getI(percorrer), cell_getJ(percorrer), cell_getK(percorrer));*/
+  free(percorrer);
 
 }
 
-void matriz_insertInto(Matriz *matriz,int i, int j, int k) {
- Cell **linhas = matriz_getLinhas(matriz); // Retorna o array de linhas da matriz
- Cell **colunas = matriz_getColunas(matriz); // Retorna o array de colunas da matriz
+void matriz_insertInto(Matriz *matriz, int i, int j, int k) {
+  Cell **linhas = matriz_getLinhas(matriz); // Retorna o array de linhas da matriz
+  Cell **colunas = matriz_getColunas(matriz); // Retorna o array de colunas da matriz
+  Cell *newCell = cell_newCell(i, j, k);
 
- if(i <= matriz_getM(matriz) && j <= matriz_getN(matriz)) {
-   Cell *ncell = cell_newCell(i, j, k); // Cria uma nova celula
+  if(linhas[i] == NULL){
+    linhas[i] = newCell;
+  }else{
+    Cell *percorrer, *anterior = NULL;
+    for(percorrer = linhas[i]; percorrer != NULL; anterior = percorrer, percorrer = cell_getNextOfCol(percorrer));
+    cell_setNextOfCol(anterior, newCell);
+  }
 
-   if(*(linhas+i) == NULL && *(colunas+j) == NULL) { // Se a cabeça da linha e coluna for nula
-     *(linhas+i) = ncell; // Então a nova céula será a cabeça da mesma
-     *(colunas+j) = ncell;
-   }else{
-     if(cell_getJ(*(linhas+i)) == j) { // Se a cabeça da linha estiver na mesma coluna que quero inserir
-       Cell *auxL = cell_getNextOfRow(*(linhas+i)); // Salvo o ponteiro para a próxima da linha
-       Cell *auxC = cell_getNextOfCol(*(linhas+i)); // E o ponteiro para a próxima da colunas
-       cell_setNextOfRow(ncell,auxL); // Defino a próxima celula da linha na nova celula
-       cell_setNextOfCol(ncell,auxC); // E o mesmo com a próxima colunas
-       *(linhas+i) = ncell; // Agora a cabeça da linha aponta para a nova céula
+  if(colunas[i] == NULL){
+    colunas[i] = newCell;
+  }else{
+    Cell *percorrer, *anterior = NULL;
+    for(percorrer = colunas[i]; percorrer != NULL; anterior = percorrer, percorrer = cell_getNextOfRow(percorrer));
+    cell_setNextOfRow(anterior, newCell);
+  }
+}
 
-     } else { // Se nao for a primeira da lista, então tenho que percorrer para encontrar
-       Cell *ccell_l = *(linhas+i); // Armazeno a cabeça da linha
-       // Equanto o proximo da linha nao for nulo e menor que a posicao que quero inserir
-       while (cell_getNextOfRow(ccell_l) != NULL && cell_getJ(cell_getNextOfRow(ccell_l)) < j) {
-         ccell_l = cell_getNextOfRow(ccell_l); // `ccell` recebe a proxima celula da linha
-       }
-       // Atribui como próximo elemento de `ncell` o proximo da celula auxiliar `ccell`
-       cell_setNextOfRow(ncell, cell_getNextOfRow(ccell_l));
-       // Atribui como próximo elemento de `ccell` a nova celula criada
-       cell_setNextOfRow(ccell_l, ncell);
+void matriz_print(Matriz *matriz){
+  Cell **linhas = matriz_getLinhas(matriz); // Retorna o array de linhas da matriz
 
-       if(*(colunas+j) == NULL) {
-         *(colunas+j) = ncell;
-       }else {
-         if(cell_getI(*(colunas+j)) == i){
-           Cell *auxC = cell_getNextOfCol(*(colunas+j));
-           Cell *auxL = cell_getNextOfRow(*(colunas+j));
-           cell_setNextOfCol(ncell, auxL);
-         }
-       }
-
-       // Cell *ccell_c = *(colunas+j);
-       // while(cell_getNextOfCol(ccell_c) != NULL && cell_getI(cell_getNextOfCol(ccell_c)) < i) {
-       //   ccell_c = cell_getNextOfCol(ccell_c);
-       // }
-       // cell_setNextOfCol(ncell, cell_getNextOfCol(ccell_c));
-       // cell_setNextOfCol(ccell_c, ncell);
-
-     }
-   }
-
-
- }
+  Cell *percorrer;
+  for(int i = 0; i < matriz_getN(matriz); i++)
+    for(percorrer = linhas[i]; percorrer != NULL; percorrer = cell_getNextOfCol(percorrer))
+      printf("%d; %d; %lf\n", cell_getI(percorrer), cell_getJ(percorrer), cell_getK(percorrer));
 }
