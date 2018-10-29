@@ -66,7 +66,7 @@ void matriz_removeCell(Matriz *matriz, int i, int j){
   Cell **colunas = matriz_getColunas(matriz);
 
   Cell *percorrer, *anterior = NULL;
-  
+
   for(percorrer = linhas[i]; cell_getJ(percorrer) != j; anterior = percorrer, percorrer = cell_getNextOfCol(percorrer));
   printf("Primeiro for: %d %d %lf\n", cell_getJ(percorrer), cell_getI(percorrer), cell_getK(percorrer));
   if(anterior == NULL)
@@ -80,7 +80,7 @@ void matriz_removeCell(Matriz *matriz, int i, int j){
     colunas[j] = cell_getNextOfRow(percorrer);
   else
     cell_setNextOfRow(anterior, cell_getNextOfRow(percorrer));
-  
+
   /*for(anterior = NULL, percorrer = colunas[j]; percorrer != NULL; anterior = percorrer, percorrer = cell_getNextOfRow(percorrer))
     printf("%d %d %lf\n", cell_getI(percorrer), cell_getJ(percorrer), cell_getK(percorrer));*/
   free(percorrer);
@@ -96,16 +96,16 @@ void matriz_insertInto(Matriz *matriz, int i, int j, int k) {
     linhas[i] = newCell;
   }else{
     Cell *percorrer, *anterior = NULL;
-    for(percorrer = linhas[i]; percorrer != NULL; anterior = percorrer, percorrer = cell_getNextOfCol(percorrer));
-    cell_setNextOfCol(anterior, newCell);
+    for(percorrer = linhas[i]; percorrer != NULL && cell_getJ(percorrer) < j; anterior = percorrer, percorrer = cell_getNextOfRow(percorrer));
+    cell_setNextOfRow(anterior, newCell);
   }
 
-  if(colunas[i] == NULL){
-    colunas[i] = newCell;
+  if(colunas[j] == NULL){
+    colunas[j] = newCell;
   }else{
     Cell *percorrer, *anterior = NULL;
-    for(percorrer = colunas[i]; percorrer != NULL; anterior = percorrer, percorrer = cell_getNextOfRow(percorrer));
-    cell_setNextOfRow(anterior, newCell);
+    for(percorrer = colunas[j]; percorrer != NULL && cell_getI(percorrer) < i; anterior = percorrer, percorrer = cell_getNextOfCol(percorrer));
+    cell_setNextOfCol(anterior, newCell);
   }
 }
 
@@ -114,6 +114,6 @@ void matriz_print(Matriz *matriz){
 
   Cell *percorrer;
   for(int i = 0; i < matriz_getN(matriz); i++)
-    for(percorrer = linhas[i]; percorrer != NULL; percorrer = cell_getNextOfCol(percorrer))
+    for(percorrer = linhas[i]; percorrer != NULL; percorrer = cell_getNextOfRow(percorrer))
       printf("%d; %d; %lf\n", cell_getI(percorrer), cell_getJ(percorrer), cell_getK(percorrer));
 }
