@@ -30,4 +30,11 @@ int main(int argc, char **argv) {
   mat_soma = matriz_sum(mat, mat2);
 
   matriz_print(mat_soma);
+
+  matriz_destroy(mat);
+  matriz_destroy(mat2);
+  matriz_destroy(mat_soma);
+
+  fclose(arq);
+  fclose(arq2);
 }

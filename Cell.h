@@ -20,7 +20,7 @@ void cell_setNextOfCol(Cell *cell, Cell *ncell); /* Define a proxima celula da c
 /* end of Setters */
 
 /* Methods */
-Cell *cell_newCell(int i, int j, int k); /* Retorna uma nova celula com posicoes, valor e ponteiros nulos  */
+Cell *cell_newCell(int i, int j, float k); /* Retorna uma nova celula com posicoes, valor e ponteiros nulos  */
 void cell_killCell(Cell *cell); /* Destroi a celula passada como parametro */
 /* end of Methods */
 

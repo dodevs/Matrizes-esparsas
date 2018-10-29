@@ -23,6 +23,7 @@ Matriz *matriz_newMatriz(int m, int n);
 Matriz *matriz_sum(Matriz *a, Matriz *b);
 Cell* matriz_exists(Matriz *matriz, int i, int j);
 void matriz_insertInto(Matriz *matriz,int i, int j, float k);
+void matriz_destroy(Matriz *matriz);
 void matriz_print(Matriz *matriz);
 void matriz_removeCell(Matriz *matriz, int i, int j);
 /* enf of Methods */

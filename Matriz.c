@@ -162,11 +162,28 @@ void matriz_insertInto(Matriz *matriz, int i, int j, float k) {
   }
 }
 
+void matriz_destroy(Matriz *matriz) {
+  Cell **linhas = matriz_getLinhas(matriz);
+  for(int i = 0; i < matriz_getM(matriz); i++){
+    Cell *c = linhas[i];
+    Cell *p = NULL;
+    while(c != NULL) {
+      p = c;
+      c = cell_getNextOfRow(c);
+      free(p);
+    }
+  }
+  free(linhas);
+  free(matriz_getColunas(matriz));
+  free(matriz);
+}
+
 void matriz_print(Matriz *matriz){
   Cell **linhas = matriz_getLinhas(matriz); // Retorna o array de linhas da matriz
 
   Cell *percorrer;
+  printf("%d\n", matriz_getM(matriz));
   for(int i = 0; i < matriz_getN(matriz); i++)
     for(percorrer = linhas[i]; percorrer != NULL; percorrer = cell_getNextOfRow(percorrer))
-      printf("%d; %d; %lf\n", cell_getI(percorrer)+1, cell_getJ(percorrer)+1, cell_getK(percorrer));
+      printf("%d;%d;%.1f\n", cell_getI(percorrer)+1, cell_getJ(percorrer)+1, cell_getK(percorrer));
 }

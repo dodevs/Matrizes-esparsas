@@ -54,7 +54,7 @@ void cell_setNextOfCol(Cell *cell, Cell *ncell) {
 /* end of Setters */
 
 /* Methods */
-Cell *cell_newCell(int i, int j, int k) {
+Cell *cell_newCell(int i, int j, float k) {
   Cell *cell = (Cell *)malloc(sizeof(Cell));
   cell->i = i;
   cell->j = j;
